@@ -27,6 +27,10 @@ void Partie::Update(long Millis)
 
     Joueur.Update(Millis);
 
+    for (int i = 0; i < Poules.size(); i++) {
+        Poules[i].Update(Millis);
+    }
+
     // TODO : Mise à jour des plantes
 
     // TODO : Mise à jour des Poules

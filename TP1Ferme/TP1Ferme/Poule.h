@@ -21,4 +21,6 @@ public:
 private:
     double PositionX, PositionY;
     bool GoesLeft;
+    long timer;
+    long times;
 };

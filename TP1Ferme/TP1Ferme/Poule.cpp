@@ -9,10 +9,19 @@ Poule::Poule()
     : PositionX(rand() % (SCREEN_WIDTH - Poule::Largeur))
     , PositionY(rand() % (SCREEN_HEIGHT - Poule::Hauteur))
     , GoesLeft(false)
+    , timer(0)
+    , times(1)
 {}
 
 void Poule::Update(long Millis)
 {
+    if (GoesLeft) {
+        PositionX -= 0.2 * Millis;
+    }
+    if (!GoesLeft) {
+        PositionX += 0.2 * Millis;
+    }
+   
     /* 
        TODO : Changer la direction du mouvement des poules à toutes
        les 1000 millisecondes. Si jamais une poule essaie de sortir de
@@ -20,6 +29,21 @@ void Poule::Update(long Millis)
        sortir et on force sa position à re-rentrer dans l'écran.
     */
 
+    timer += Millis;
+    if (timer > times * 1000) {
+        times++;
+        this->GoesLeft = !this->GoesLeft;
+    }
+
+    if (PositionX < 0) {
+        GoesLeft = false;
+        times++;
+    }
+
+    if (PositionX > (SCREEN_WIDTH - Poule::Hauteur)) {
+        times++;
+        GoesLeft = true;
+    }
 
     /*
       TODO : La poule doit pondre un oeuf aux 8000 millisecondes.

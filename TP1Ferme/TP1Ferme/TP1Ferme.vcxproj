@@ -155,6 +155,7 @@
     <ClInclude Include="Input.h" />
     <ClInclude Include="Oeuf.h" />
     <ClInclude Include="Partie.h" />
+    <ClInclude Include="Plant.h" />
     <ClInclude Include="Poule.h" />
     <ClInclude Include="Render.h" />
   </ItemGroup>
@@ -165,6 +166,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Oeuf.cpp" />
     <ClCompile Include="Partie.cpp" />
+    <ClCompile Include="Plant.cpp" />
     <ClCompile Include="Poule.cpp" />
     <ClCompile Include="Render.cpp" />
   </ItemGroup>

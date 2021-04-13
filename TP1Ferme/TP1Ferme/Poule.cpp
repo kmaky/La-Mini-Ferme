@@ -12,18 +12,23 @@ Poule::Poule()
     , Timer(0)
     , Times(1)
     , PondUnOeuf(false)
+    , RandomeDirection(rand()%3 + 1)
 {}
 
 void Poule::Update(long Millis)
 {
-    if (GoesLeft) 
-    {
+    if (RandomeDirection == 1) {
         PositionX -= 0.2 * Millis;
+        GoesLeft = false;
     }
-    if (!GoesLeft) 
-    {
+    else if (RandomeDirection == 2) {
         PositionX += 0.2 * Millis;
+        GoesLeft = true;
     }
+    else if (RandomeDirection == 3)
+        PositionY += 0.2 * Millis;
+    else if (RandomeDirection == 4)
+        PositionY -= 0.2 * Millis;
    
     /* 
        TODO : Changer la direction du mouvement des poules à toutes
@@ -32,27 +37,34 @@ void Poule::Update(long Millis)
        sortir et on force sa position à re-rentrer dans l'écran.
     */
 
-    
-
     Timer += Millis;
     if (Timer > Times * 1000 && rand() % 10 > 8) 
     {
         Times++;
-        this->GoesLeft = !this->GoesLeft;
+        RandomeDirection = rand() % 5 + 1;
     }
-
+    
     if (PositionX < 0) 
     {
-        GoesLeft = false;
+        RandomeDirection = 2;
         Times++;
     }
-
-    if (PositionX > (SCREEN_WIDTH - Poule::Hauteur)) 
+    else if (PositionX > (SCREEN_WIDTH - Poule::Largeur)) 
     {
+        RandomeDirection = 1;
+        Times++;
+    }
+    else if (PositionY < 0)
+    {
+        RandomeDirection = 3;
+        Times++;
+    }
+    else if (PositionY > (SCREEN_HEIGHT - Poule::Hauteur))
+    {
+        RandomeDirection = 4;
         Times++;
         GoesLeft = true;
     }
-
     /*
       TODO : La poule doit pondre un oeuf aux 8000 millisecondes.
 
@@ -88,7 +100,10 @@ double Poule::GetPositionY() const
 
 bool Poule::GetPondUnOeuf() const
 {
-    return PondUnOeuf;
+    if (PondUnOeuf && (RandomeDirection == 1)) {
+        return true;
+    }
+    return false;
 }
 
 void Poule::APondeUnOeuf()

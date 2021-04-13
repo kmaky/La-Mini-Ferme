@@ -28,4 +28,6 @@ private:
 
     long Timer;
     long Times;
+
+    int RandomeDirection;
 };

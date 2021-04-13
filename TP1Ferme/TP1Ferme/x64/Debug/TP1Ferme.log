@@ -1,2 +1,7 @@
-﻿  Gnome.cpp
+﻿  Game.cpp
+  Partie.cpp
+  Plant.cpp
+  main.cpp
+C:\Users\alexey\Desktop\BDEB\Programmation 2\TP2\La-Mini-Ferme\TP1Ferme\TP1Ferme\main.cpp(68,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  Generating Code...
   TP1Ferme.vcxproj -> C:\Users\alexey\Desktop\BDEB\Programmation 2\TP2\La-Mini-Ferme\TP1Ferme\x64\Debug\TP1Ferme.exe

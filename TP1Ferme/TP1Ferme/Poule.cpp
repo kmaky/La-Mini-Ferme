@@ -9,16 +9,19 @@ Poule::Poule()
     : PositionX(rand() % (SCREEN_WIDTH - Poule::Largeur))
     , PositionY(rand() % (SCREEN_HEIGHT - Poule::Hauteur))
     , GoesLeft(false)
-    , timer(0)
-    , times(1)
+    , Timer(0)
+    , Times(1)
+    , PondUnOeuf(false)
 {}
 
 void Poule::Update(long Millis)
 {
-    if (GoesLeft) {
+    if (GoesLeft) 
+    {
         PositionX -= 0.2 * Millis;
     }
-    if (!GoesLeft) {
+    if (!GoesLeft) 
+    {
         PositionX += 0.2 * Millis;
     }
    
@@ -29,19 +32,22 @@ void Poule::Update(long Millis)
        sortir et on force sa position à re-rentrer dans l'écran.
     */
 
-    timer += Millis;
-    if (timer > times * 1000) {
-        times++;
+    Timer += Millis;
+    if (Timer > Times * 1000) 
+    {
+        Times++;
         this->GoesLeft = !this->GoesLeft;
     }
 
-    if (PositionX < 0) {
+    if (PositionX < 0) 
+    {
         GoesLeft = false;
-        times++;
+        Times++;
     }
 
-    if (PositionX > (SCREEN_WIDTH - Poule::Hauteur)) {
-        times++;
+    if (PositionX > (SCREEN_WIDTH - Poule::Hauteur)) 
+    {
+        Times++;
         GoesLeft = true;
     }
 
@@ -56,6 +62,11 @@ void Poule::Update(long Millis)
       pondre, s'occuper de créer les oeufs nécessaires et de mettre la
       valeur de `PondUnOeuf` à false lorsque c'est fait.
     */
+
+    if (Timer > 8000 && !PondUnOeuf) 
+    {
+        PondUnOeuf = true;
+    }
 }
 
 bool Poule::LooksLeft() const
@@ -71,4 +82,16 @@ double Poule::GetPositionX() const
 double Poule::GetPositionY() const
 {
     return PositionY;
+}
+
+bool Poule::GetPondUnOeuf() const
+{
+    return PondUnOeuf;
+}
+
+void Poule::APondeUnOeuf()
+{
+    PondUnOeuf = false;
+    Timer = 0;
+    Times = 0;
 }

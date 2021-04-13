@@ -11,15 +11,15 @@
 Partie::Partie()
     : PartieFinie(false)
 {
-    for(int i=0; i<9; i++)
-        Oeufs.push_back(Oeuf{50.0 * i, 50.0 * i}); // TODO : SUPPRIMER CETTE LIGNE, c'est seulement un exemple
+    //for(int i=0; i<9; i++)
+    //    Oeufs.push_back(Oeuf{50.0 * i, 50.0 * i}); // TODO : SUPPRIMER CETTE LIGNE, c'est seulement un exemple
 }
 
 void Partie::Update(long Millis)
 {
     // Si la partie n'est pas encore terminée, on fait avancer l'état
     // du jeu
-    if(PartieFinie)
+    if (PartieFinie)
     {
         return;
     }
@@ -27,23 +27,31 @@ void Partie::Update(long Millis)
 
     Joueur.Update(Millis);
 
+    // TODO : Mise à jour des plantes
+
+    // TODO : Mise à jour des Poules
+    // 
     for (int i = 0; i < Poules.size(); i++) {
         Poules[i].Update(Millis);
     }
 
-    // TODO : Mise à jour des plantes
-
-    // TODO : Mise à jour des Poules
     // TODO : Ajouter les oeufs qui sont pondus par les poules
-
+    for (int i = 0; i < Poules.size(); i++) {
+        if (Poules[i].GetPondUnOeuf()) {
+            double x = Poules[i].GetPositionX();
+            double y = Poules[i].GetPositionY();
+            Oeufs.push_back(Oeuf{ x, y});
+            Poules[i].APondeUnOeuf();
+        }
+    }
 
     // Mise à jour des oeufs
-    for(auto& Oeuf : Oeufs)
+    for (auto& Oeuf : Oeufs)
     {
         Oeuf.Update(Millis);
     }
 
-    /* 
+    /*
        Efface tous les oeufs à moins de 70 pixels de joueur lorsqu'on
        appuie sur Espace
 
@@ -53,9 +61,9 @@ void Partie::Update(long Millis)
     Oeufs.erase(
         std::remove_if(
             Oeufs.begin(), Oeufs.end(),
-            [&](auto& O){
+            [&](auto& O) {
                 return Input::PressedKeys[Input::Space]
-                    && Joueur.Distance(O.GetPositionX() + Oeuf::Largeur / 2,  O.GetPositionY() + Oeuf::Hauteur / 2) < 70;
+                    && Joueur.Distance(O.GetPositionX() + Oeuf::Largeur / 2, O.GetPositionY() + Oeuf::Hauteur / 2) < 70;
             }),
         Oeufs.end());
 

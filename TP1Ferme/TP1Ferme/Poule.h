@@ -5,8 +5,11 @@ class Poule
 public:
     Poule();
     void Update(long Millis);
+    void APondeUnOeuf();
 
     bool LooksLeft() const;
+    bool GetPondUnOeuf() const;
+
     double GetPositionX() const;
     double GetPositionY() const;
 
@@ -21,6 +24,8 @@ public:
 private:
     double PositionX, PositionY;
     bool GoesLeft;
-    long timer;
-    long times;
+    bool PondUnOeuf;
+
+    long Timer;
+    long Times;
 };

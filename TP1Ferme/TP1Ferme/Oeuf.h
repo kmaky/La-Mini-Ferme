@@ -16,4 +16,5 @@ public:
 private:
     bool Visible;
     double PositionX, PositionY;
+    long Timer;
 };

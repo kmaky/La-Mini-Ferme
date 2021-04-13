@@ -32,8 +32,10 @@ void Poule::Update(long Millis)
        sortir et on force sa position à re-rentrer dans l'écran.
     */
 
+    
+
     Timer += Millis;
-    if (Timer > Times * 1000) 
+    if (Timer > Times * 1000 && rand() % 10 > 8) 
     {
         Times++;
         this->GoesLeft = !this->GoesLeft;

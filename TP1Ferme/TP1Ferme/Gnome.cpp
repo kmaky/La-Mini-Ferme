@@ -15,22 +15,22 @@ Gnome::Gnome()
 
 void Gnome::Update(long Millis)
 {
-    if(Input::PressedKeys[Input::Right])
+    if(Input::PressedKeys[Input::Right] && PositionX + 100 < SCREEN_WIDTH)
     {
         PositionX += 0.2 * Millis;
         GoesLeft = false;
     }
-    else if(Input::PressedKeys[Input::Left])
+    else if(Input::PressedKeys[Input::Left] && PositionX > 0)
     {
         PositionX -= 0.2 * Millis;
         GoesLeft = true;
     }
 
-    if(Input::PressedKeys[Input::Up])
+    if(Input::PressedKeys[Input::Up] && PositionY > 0)
     {
         PositionY -= 0.2 * Millis;
     }
-    else if(Input::PressedKeys[Input::Down])
+    else if(Input::PressedKeys[Input::Down] && PositionY + 100 < SCREEN_HEIGHT)
     {
         PositionY += 0.2 * Millis;
     }
@@ -42,7 +42,9 @@ void Gnome::Update(long Millis)
 // sur l'écran
 double Gnome::Distance(double X, double Y)
 {
-    return 0.123456789;
+    double answer = (double)sqrt((X - PositionX - 50) * (X - PositionX - 50) + (Y - PositionY - 50) * (Y - PositionY - 50));
+
+    return answer;
 }
 
 double Gnome::GetPositionX() const
